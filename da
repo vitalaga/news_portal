@@ -1,0 +1,11 @@
+[33mcommit ed65d4a78098aff3206438c47d97bc3bc9fbcd81[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m
+Author: Vitaly <vitalage@yandex.ru>
+Date:   Fri Apr 14 16:25:04 2023 +0300
+
+    add celery
+
+[33mcommit 278fcb5843a78c96b91af499c22b3aa6f616ca2a[m
+Author: Vitaly <vitalage@yandex.ru>
+Date:   Fri Apr 14 15:43:06 2023 +0300
+
+    add celery

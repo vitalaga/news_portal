@@ -1,0 +1,14 @@
+{% extends 'flatpages/default.html' %}
+
+{% load censor %}
+
+{% block title %}
+Post
+{% endblock title %}
+
+    {% block content %}
+    <h2>{{ post.header|censor }}</h2>
+    <h6><p align="right">{{ post.date_post|date:'d M Y' }}</p></h6>
+    <hr>
+    <p>{{ post.text_post|censor }}</p>
+{% endblock content %}
