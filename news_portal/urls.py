@@ -9,7 +9,7 @@ from .views import (
 
 urlpatterns = [
     path('', cache_page(60)(PostsList.as_view()), name="news"),
-    path('<int:pk>', cache_page(60*5)(PostDetail.as_view()), name='news_detail'),
+    path('<int:pk>', PostDetail.as_view(), name='news_detail'),
     path('search/', PostSearch.as_view(), name='post_search'),
     path('create/', PostCreate.as_view(), name='news_create'),
     path('articles/create/', PostCreate.as_view(), name='article_create'),
