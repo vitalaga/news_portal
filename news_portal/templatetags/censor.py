@@ -12,3 +12,15 @@ def censor(value):
             censor_word = ''.join(['*' for word in range(len(word))])
             value = value.replace(word, censor_word)
     return value
+
+
+@register.filter()
+def hide_forbidden(value):
+    words = value.split()
+    result = []
+    for word in words:
+        if word in CURSE_WORDS:
+            result.append(word[0] + "*" * (len(word) - 2) + word[-1])
+        else:
+            result.append(word)
+    return " ".join(result)
