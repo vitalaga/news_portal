@@ -25,6 +25,119 @@ SECRET_KEY = 'django-insecure-*g6&%w6$0s(sd9$@n08yr!o*3n+b*2pu7%o0cu5ef6avg9ow+)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'simple': {
+            'format': '%{asctime}s %{levelname}s %{message}s',
+            'style': '{',
+        },
+        'formatter_warning': {
+            'format': '%{asctime}s %{levelname}s %{pathname}s %{message}s',
+            'style': '{',
+        },
+        'formatter_error': {
+            'format': '%{asctime}s %{levelname}s %{pathname}s %{exc_info}s %{message}s',
+            'style': '{',
+        },
+        'formatter_info': {
+            'format': '%{asctime}s %{levelname}s %{module}s %{message}s',
+            'style': '{',
+        },
+        'formatter_mail': {
+            'format': '%{asctime}s %{levelname}s %{pathname}s %{message}s',
+            'style': '{',
+        },
+    },
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+        'console_warning': {
+            'level': 'WARNING',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'formatter_warning',
+        },
+        'console_error': {
+            'level': 'ERROR',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'formatter_error',
+        },
+        'file_info': {
+            'level': 'INFO',
+            'filters': ['require_debug_false'],
+            'class': 'logging.FileHandler',
+            'formatter': 'formatter_info',
+            'filename': 'log/general.log',
+        },
+        'file_error': {
+            'level': 'ERROR',
+            'filters': ['require_debug_true'],
+            'class': 'logging.FileHandler',
+            'formatter': 'formatter_error',
+            'filename': 'log/errors.log',
+        },
+        'file_security': {
+            'filters': ['require_debug_true'],
+            'class': 'logging.FileHandler',
+            'formatter': 'formatter_info',
+            'filename': 'log/security.log',
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+            'filters': ['require_debug_false'],
+            'formatter': 'formatter_mail',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'console_warning', 'console_error'],
+            'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['file_error', 'mail_admins'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'django.server': {
+            'handlers': ['file_error'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'django.template': {
+            'handlers': ['file_error'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'django.db.backends': {
+            'handlers': ['file_error'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'django.security': {
+            'handlers': ['file_security', 'mail_admins'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+    }
+
+}
+
 ALLOWED_HOSTS = ['127.0.0.1']
 
 
@@ -87,7 +200,7 @@ AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend',
                            ]
 
 CACHES = {
-    'default' : {
+    'default': {
         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
         'LOCATION': os.path.join(BASE_DIR, 'cache_files'),
 
@@ -171,6 +284,10 @@ EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_SSL = True
 DEFAULT_FROM_EMAIL = f"{EMAIL_HOST_USER}@yandex.ru"
+
+ADMINS = [
+    ('admin', 'colombojaga@yandex.ru'),
+]
 
 APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
 APSCHEDULER_RUN_NOW_TIMEOUT = 25
