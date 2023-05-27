@@ -13,6 +13,12 @@ from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMix
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 
+from django.utils import timezone
+from django.shortcuts import redirect
+
+
+
+
 
 class PostsList(ListView):
     model = Post
@@ -30,6 +36,12 @@ class PostsList(ListView):
         context = super().get_context_data(**kwargs)
         context['filterset'] = self.filterset
         return context
+
+    def post(self, request):
+        request.session['django_timezone'] = request.POST['timezone']
+        return redirect('news')
+
+
 
 
 class PostSearch(ListView):

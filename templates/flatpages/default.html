@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load i18n %}
+{% load tz %}
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -57,8 +58,23 @@
                 </option>
                 {% endfor %}
             </select>
-            <input type="submit" value="set">
+            <input type="submit" value="OK">
         </form>
+
+        {% get_current_timezone as TIME_ZONE %}
+        <form action="" method="POST">
+            {% csrf_token %}
+            <label for="timezone">Time zone:</label>
+            <select name="timezone">
+                {% for tz in timezones %}
+                <option value="{{ tz }}"{% if tz == TIME_ZONE %} selected{% endif %}>{{ tz }}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="OK">
+        </form>
+
+        {{ TIME_ZONE }}
+        {{ current_time|timezone:TIME_ZONE }}
         <!-- Page content-->
         <div class="container">
             <div class="row">
