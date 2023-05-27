@@ -1,13 +1,14 @@
 {% extends 'flatpages/default.html' %}
 
 {% load censor %}
+{% load i18n %}
 
 {% block title %}
 News
 {% endblock title %}
 
 {% block content %}
-    <h1>Новостей на странице {{ news|length }}:</h1>
+    <h1>{% trans "News on page" %}{{ news|length }}:</h1>
 
     {% for category in post.categories.all %}
         <a href="{% url 'category_list' categories.id %}">{{ category }}</a>
@@ -17,9 +18,9 @@ News
     {% if news %}
         <table>
             <tr>
-                <td><strong>Заголовок</strong></td>
-                <td><strong>Дата публикации</strong></td>
-                <td><strong>Краткое описание</strong></td>
+                <td><strong>{% trans "Title" %}</strong></td>
+                <td><strong>{% trans "Publication date" %}</strong></td>
+                <td><strong>{% trans "Short description" %}</strong></td>
             </tr>
 
             {% for post in news %}
@@ -32,7 +33,7 @@ News
 
         </table>
     {% else %}
-        <h2>Новостей нет!</h2>
+        <h2>{% trans "No news!" %}</h2>
     {% endif %}
     {% if page_obj.has_previous %}
             <a href="?page=1">1</a>

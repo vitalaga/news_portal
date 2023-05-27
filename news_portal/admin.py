@@ -1,5 +1,14 @@
 from django.contrib import admin
 from .models import Post, Author, Category, Comment
+from modeltranslation.admin import TranslationAdmin
+
+
+class CategoryAdminTranslation(TranslationAdmin):
+    model = Category
+
+
+class PostAdminTranslation(TranslationAdmin):
+    model = Post
 
 
 class PostAdmin(admin.ModelAdmin):

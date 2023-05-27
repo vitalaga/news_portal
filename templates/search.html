@@ -1,6 +1,7 @@
 {% extends 'flatpages/default.html' %}
 
 {% load censor %}
+{% load i18n %}
 
 {% block title %}
 News
@@ -8,11 +9,11 @@ News
 
 {% block content %}
 
-    <h1>Всего новостей найдено - {{ news|length }}:</h1>
+    <h1>{% trans "Total news found" %} - {{ news|length }}:</h1>
 
     <form action="" method="get">
         {{ filterset.form.as_p }}
-       <input type="submit" value="Найти"/>
+       <input type="submit" value="{% trans 'Search' %}"/>
     </form>
 
     <hr>
@@ -20,14 +21,14 @@ News
     {% if news %}
         <table>
             <tr>
-                <td>Заголовок</td>
-                <td>Дата публикации</td>
-                <td>Краткое описание</td>
+                <td><strong>{% trans "Title" %}</strong></td>
+                <td><strong>{% trans "Publication date" %}</strong></td>
+                <td><strong>{% trans "Short description" %}</strong></td>
             </tr>
 
             {% for post in news %}
             <tr>
-                <td>{{ post.header|censor }}</td>
+                <td><a href="{% url 'news_detail' post.id %}">{{ post.header|censor }}</a></td>
                 <td>{{ post.date_post|date:'d M Y'}}</td>
                 <td>{{ post.text_post|truncatewords:20|censor }}</td>
             </tr>
@@ -35,7 +36,7 @@ News
 
         </table>
     {% else %}
-        <h2>Новостей нет!</h2>
+        <h2>{% trans "No news!" %}</h2>
     {% endif %}
 
 <!--    {% if page_obj.has_previous %}-->
